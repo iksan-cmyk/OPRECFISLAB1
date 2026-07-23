@@ -833,6 +833,14 @@ table.peserta-table {
   color: var(--text);
   font-weight: 600;
 }
+.status-jadwal.status-link a {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--mid);
+  text-decoration: none;
+  word-break: break-all;
+}
+.status-jadwal.status-link a:hover { text-decoration: underline; }
 
 .status-catatan {
   background: var(--bg2);

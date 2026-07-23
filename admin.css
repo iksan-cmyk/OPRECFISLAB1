@@ -333,6 +333,23 @@
 .input-jadwal:focus { outline: none; border-color: var(--mid); }
 .input-jadwal:disabled { opacity: .5; cursor: not-allowed; }
 
+.input-zoom {
+  padding: 7px 10px;
+  font-size: .82rem;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--white);
+  border: 1.5px solid var(--gray200);
+  border-radius: 8px;
+  cursor: text;
+  transition: border-color .2s;
+  min-width: 180px;
+  flex: 1 1 180px;
+}
+
+.input-zoom:focus { outline: none; border-color: var(--mid); }
+.input-zoom:disabled { opacity: .5; cursor: not-allowed; }
+
 .btn-simpan-jadwal {
   color: var(--green);
   background: rgba(22,163,74,.08);

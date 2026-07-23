@@ -1,7 +1,7 @@
 /* ════════════════════════════════════════════════════════
    pengumuman.js — Halaman cek status seleksi via NRP
-   - Fetch pendaftar_aslab by nrp (RLS anon SELECT 4 kolom)
-   - Tampilkan 1 dari 5 status + jadwal interview (kalau lolos_berkas)
+   - Fetch pendaftar_aslab by nrp (RLS anon SELECT 5 kolom)
+   - Tampilkan 1 dari 5 status + jadwal interview + link interview (kalau lolos_berkas)
    ════════════════════════════════════════════════════════ */
 
 /* ── Supabase config (harus sama dengan script.js & admin.js) ── */
@@ -92,7 +92,7 @@ async function checkStatus(nrp, resultId) {
   try {
     const { data, error } = await dbClient
       .from('pendaftar_aslab')
-      .select('nama_lengkap, nrp, status, jadwal_interview')
+      .select('nama_lengkap, nrp, status, jadwal_interview, link_interview')
       .eq('nrp', nrpTrim)
       .maybeSingle();
 
@@ -125,6 +125,7 @@ function renderStatusResult(data, resultId) {
   const nama = data.nama_lengkap ? escapeHtml(data.nama_lengkap) : '';
 
   let jadwalHtml = '';
+  let linkHtml = '';
   let catatanHtml = '';
   if (status === 'lolos_berkas') {
     if (data.jadwal_interview) {
@@ -138,6 +139,12 @@ function renderStatusResult(data, resultId) {
         '<strong>Jadwal interview menyusul, pantau terus ya</strong>' +
       '</div>';
     }
+    if (data.link_interview) {
+      linkHtml = '<div class="status-jadwal status-link">' +
+        '<span class="status-jadwal-label">🔗 Link Interview</span>' +
+        '<a href="' + escapeHtml(data.link_interview) + '" target="_blank" rel="noopener noreferrer">Gabung Interview</a>' +
+      '</div>';
+    }
     catatanHtml = CATATAN_INTERVIEW;
   }
 
@@ -147,6 +154,7 @@ function renderStatusResult(data, resultId) {
       '<span class="status-badge-publik ' + badgeClass + '">' + badgeLabel + '</span>' +
       '<p class="status-msg">' + escapeHtml(pesan) + '</p>' +
       jadwalHtml +
+      linkHtml +
     '</div>' +
     catatanHtml;
 }

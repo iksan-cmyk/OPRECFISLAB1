@@ -146,7 +146,8 @@ function renderTabel(data) {
 
     const aksiDokumen = status === 'lolos_berkas'
       ? `<input class="input-jadwal" type="datetime-local" value="${timestamptzToLocalInput(p.jadwal_interview)}" title="Jadwal interview">
-         <button class="btn-lihat-dok btn-simpan-jadwal" onclick="updateJadwalInterview('${p.id || p.nrp}')" title="Simpan jadwal">
+         <input class="input-zoom" type="url" placeholder="https://zoom.us/..." value="${escapeHtml(p.link_interview || '')}" title="Link interview (Zoom/dll)">
+         <button class="btn-lihat-dok btn-simpan-jadwal" onclick="updateJadwalInterview('${p.id || p.nrp}')" title="Simpan jadwal & link">
            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
            Simpan
          </button>`
@@ -242,33 +243,41 @@ async function updateJadwalInterview(id) {
 
   const row = document.querySelector('tr[data-id="' + id + '"]');
   const input = row ? row.querySelector('.input-jadwal') : null;
+  const inputZoom = row ? row.querySelector('.input-zoom') : null;
   const btn = row ? row.querySelector('.btn-simpan-jadwal') : null;
 
   if (!input) return;
 
   const val = input.value;
   const iso = val ? localInputToISO(val) : null;
+  const linkVal = inputZoom ? inputZoom.value.trim() : null;
 
   if (input) { input.disabled = true; }
+  if (inputZoom) { inputZoom.disabled = true; }
   if (btn) { btn.disabled = true; }
 
   try {
     const { error } = await dbClient
       .from('pendaftar_aslab')
-      .update({ jadwal_interview: iso })
+      .update({ jadwal_interview: iso, link_interview: linkVal || null })
       .eq('id', id);
 
     if (error) throw error;
 
     const p = pendaftarCache.find(x => (x.id || x.nrp) == id);
-    if (p) p.jadwal_interview = iso;
+    if (p) {
+      p.jadwal_interview = iso;
+      p.link_interview = linkVal || null;
+    }
   } catch (err) {
     console.error('Update jadwal interview gagal:', err);
     alert('Gagal menyimpan jadwal: ' + (err.message || 'unknown error'));
     const p = pendaftarCache.find(x => (x.id || x.nrp) == id);
     if (input && p) input.value = timestamptzToLocalInput(p.jadwal_interview);
+    if (inputZoom && p) inputZoom.value = p.link_interview || '';
   } finally {
     if (input) { input.disabled = false; }
+    if (inputZoom) { inputZoom.disabled = false; }
     if (btn) { btn.disabled = false; }
   }
 }
