@@ -297,6 +297,7 @@
   display: flex;
   gap: 8px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .btn-lihat-dok {
@@ -316,6 +317,30 @@
 }
 
 .btn-lihat-dok:hover { background: rgba(59,111,212,.15); }
+
+.input-jadwal {
+  padding: 7px 10px;
+  font-size: .82rem;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--white);
+  border: 1.5px solid var(--gray200);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color .2s;
+}
+
+.input-jadwal:focus { outline: none; border-color: var(--mid); }
+.input-jadwal:disabled { opacity: .5; cursor: not-allowed; }
+
+.btn-simpan-jadwal {
+  color: var(--green);
+  background: rgba(22,163,74,.08);
+  border-color: rgba(22,163,74,.25);
+}
+
+.btn-simpan-jadwal:hover { background: rgba(22,163,74,.15); }
+.btn-simpan-jadwal:disabled { opacity: .5; cursor: not-allowed; }
 
 .select-status {
   padding: 7px 10px;

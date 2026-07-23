@@ -302,17 +302,20 @@ body {
 }
 .choice-limit-warning.show { display: flex; }
 
-.upload-area {
-  border: 2px dashed var(--gray200);
-  border-radius: 12px;
-  padding: 28px;
-  text-align: center;
-  cursor: pointer;
-  transition: border-color .2s, background .2s;
-  position: relative;
-  background: var(--bg2);
+.upload-area{
+    position:relative;
+    border:2px dashed #D7DCE5;
+    border-radius:14px;
+    padding:28px;
+    text-align:center;
+    transition:.25s;
+    cursor:pointer;
+    background:#fff;
 }
-.upload-area:hover { border-color: var(--mid); background: rgba(59,111,212,.04); }
+.upload-area:hover{
+    border-color:#6B4EFF;
+    background:#fafaff;
+}
 .upload-area input[type="file"] {
   position: absolute;
   inset: 0;
@@ -321,8 +324,50 @@ body {
   width: 100%;
   height: 100%;
 }
-.upload-label { font-size: .88rem; color: var(--gray700); font-weight: 500; }
-.upload-hint { font-size: .78rem; color: var(--gray400); margin-top: 4px; }
+.upload-label{
+    font-weight:600;
+}
+.upload-hint{
+    margin-top:6px;
+    color:#777;
+    font-size:.9rem;
+}
+.upload-file{
+    display:none;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+}
+.file-left{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+.file-icon{
+    width:46px;
+    height:46px;
+    border-radius:10px;
+    background:#EEF2FF;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:24px;
+}
+.file-name{
+    font-weight:600;
+    text-align:left;
+    word-break:break-word;
+}
+.upload-area.has-file{
+    border:2px solid #22C55E;
+    background:#F0FDF4;
+}
+.upload-area.has-file .upload-placeholder{
+    display:none;
+}
+.upload-area.has-file .upload-file{
+    display:flex;
+}
 
 .agree-box {
   display: flex;
@@ -479,29 +524,6 @@ body {
   width: 100%;
 }
 
-#page-lolos-berkas {
-  background: linear-gradient(160deg, #fffbeb 0%, #fef9e7 60%, #fefce8 100%);
-  color: var(--text);
-}
-#page-lolos-berkas .btn-back {
-  background: rgba(245,158,11,.1);
-  border-color: rgba(245,158,11,.3);
-  color: #92400e;
-}
-#page-lolos-berkas .btn-back:hover { background: rgba(245,158,11,.18); }
-
-/* lolos final */
-#page-lolos-final {
-  background: linear-gradient(160deg, #f0fdf4 0%, #dcfce7 40%, #f0fdf4 100%);
-  color: var(--text);
-}
-#page-lolos-final .btn-back {
-  background: rgba(22,163,74,.08);
-  border-color: rgba(22,163,74,.25);
-  color: #166534;
-}
-#page-lolos-final .btn-back:hover { background: rgba(22,163,74,.15); }
-
 .confetti-banner {
   background: var(--surface);
   border: 1px solid var(--gray200);
@@ -510,14 +532,6 @@ body {
   text-align: center;
   margin-bottom: 32px;
   box-shadow: 0 4px 24px rgba(59,111,212,.08);
-}
-#page-lolos-berkas .confetti-banner {
-  border-color: #f59e0b;
-  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-}
-#page-lolos-final .confetti-banner {
-  border-color: #86efac;
-  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
 }
 .confetti-banner h1 {
   font-size: clamp(1.4rem, 3.5vw, 2rem);
@@ -690,6 +704,161 @@ table.peserta-table {
 .demo-btn:hover { background: var(--gray200); color: var(--text); }
 .demo-btn.active-page { background: var(--mid); color: #fff; border-color: var(--mid); }
 
+/* ── CEK STATUS FORM (halaman pengumuman) ── */
+.cek-status-wrap {
+  background: var(--surface);
+  border: 1px solid var(--gray200);
+  border-radius: 16px;
+  padding: 28px 24px;
+  margin-bottom: 28px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.04);
+}
+
+.cek-status-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cek-status-label {
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.cek-status-row {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.cek-status-input {
+  flex: 1;
+  background: var(--bg2);
+  border: 1.5px solid var(--gray200);
+  border-radius: 10px;
+  padding: 11px 16px;
+  color: var(--text);
+  font-family: 'Work Sans', sans-serif;
+  font-size: .9rem;
+  outline: none;
+  transition: border-color .2s;
+}
+.cek-status-input::placeholder { color: var(--gray400); }
+.cek-status-input:focus { border-color: var(--mid); }
+.cek-status-input:disabled { opacity: .5; cursor: not-allowed; }
+
+.btn-cek-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--mid);
+  color: #fff;
+  font-weight: 700;
+  font-size: .88rem;
+  padding: 11px 22px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform .2s, background .2s;
+}
+.btn-cek-status:hover { background: var(--accent2); transform: translateY(-1px); }
+.btn-cek-status:active { transform: translateY(0); }
+.btn-cek-status:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+/* ── STATUS RESULT ── */
+.status-result { margin-top: 20px; }
+.status-result:empty { margin-top: 0; }
+
+.status-card {
+  background: var(--bg2);
+  border: 1px solid var(--gray200);
+  border-radius: 12px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+
+.status-nama {
+  font-size: .92rem;
+  color: var(--subtext);
+  margin: 0;
+}
+.status-nama strong { color: var(--text); }
+
+.status-badge-publik {
+  display: inline-block;
+  padding: 5px 16px;
+  font-size: .8rem;
+  font-weight: 700;
+  border-radius: 999px;
+  border: 1.5px solid currentColor;
+  background: var(--gray50);
+}
+.is-pending       { color: var(--gray400); }
+.is-lolos-berkas  { color: var(--accent); }
+.is-gagal         { color: var(--red); }
+.is-lolos-final   { color: var(--green); }
+.is-ditolak-final { color: var(--red); }
+
+.status-msg {
+  font-size: .95rem;
+  color: var(--text);
+  line-height: 1.6;
+  margin: 0;
+}
+.status-loading { color: var(--gray400); }
+
+.status-jadwal {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 20px;
+  background: var(--surface);
+  border: 1px solid var(--gray200);
+  border-radius: 10px;
+  width: 100%;
+}
+.status-jadwal-label {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--gray400);
+}
+.status-jadwal strong {
+  font-size: .95rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.status-catatan {
+  background: var(--bg2);
+  border: 1px solid var(--gray200);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-top: 16px;
+}
+.status-catatan h3 {
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.status-catatan ul {
+  padding-left: 18px;
+  list-style: disc;
+}
+.status-catatan li {
+  font-size: .84rem;
+  color: var(--text);
+  margin-bottom: 5px;
+  line-height: 1.6;
+}
+.status-catatan li:last-child { margin-bottom: 0; }
+
 @media (max-width: 600px) {
   .field-row { grid-template-columns: 1fr !important; }
   .card { padding: 18px 16px; }
@@ -709,4 +878,7 @@ table.peserta-table {
   .lobby-title {
     font-size: clamp(1.6rem, 7vw, 2.4rem);
   }
+
+  .cek-status-row { flex-direction: column; }
+  .btn-cek-status { width: 100%; justify-content: center; }
 }

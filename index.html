@@ -32,14 +32,11 @@
       Semangat bre🔥🔥
     </p>
 
-    <!--<div style="margin-top:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
-      <button onclick="showPage('page-lolos-berkas')" style="display:inline-flex;align-items:center;gap:8px;background:rgba(202,138,4,.1);border:1px solid rgba(202,138,4,.25);color:#fde047;font-size:.85rem;font-weight:600;padding:10px 20px;border-radius:10px;cursor:pointer;transition:background .2s;">
-        Pengumuman Lolos Berkas
-      </button>
-      <button onclick="showPage('page-lolos-final')" style="display:inline-flex;align-items:center;gap:8px;background:rgba(22,163,74,.1);border:1px solid rgba(22,163,74,.25);color:#86efac;font-size:.85rem;font-weight:600;padding:10px 20px;border-radius:10px;cursor:pointer;transition:background .2s;">
-        Pengumuman Aslab
-      </button>
-    </div>-->
+    <div style="margin-top:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
+      <a href="pengumuman.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(59,111,212,.1);border:1px solid rgba(59,111,212,.25);color:#a5c0f5;font-size:.85rem;font-weight:600;padding:10px 20px;border-radius:10px;cursor:pointer;transition:background .2s;text-decoration:none;">
+        Cek Pengumuman
+      </a>
+    </div>
   </div>
 </div>
 
@@ -192,8 +189,22 @@
             <label>Curriculum Vitae (ATS atau Kreatif) <span class="req">*</span></label>
             <div class="upload-area">
               <input type="file" id="file_cv" accept=".pdf" />
-              <div class="upload-label">Klik atau seret file ke sini</div>
-              <div class="upload-hint">PDF · Maks. 10 MB</div>
+              <div class="upload-placeholder">
+                <div class="upload-label">
+                  Klik atau seret file ke sini
+                </div>
+                <div class="upload-hint">
+                  PDF · Maks. 10 MB
+                </div>
+              </div>
+              <div class="upload-file">
+                <div class="file-left">
+                  <div class="file-icon">📄</div>
+                  <div>
+                    <div class="file-name"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -203,8 +214,22 @@
             <label>Transkrip Nilai <span class="req">*</span></label>
             <div class="upload-area">
               <input type="file" id="file_transkrip" accept=".pdf,image/*" />
-              <div class="upload-label">Klik atau seret file ke sini</div>
-              <div class="upload-hint">PDF atau gambar · Maks. 5 MB</div>
+              <div class="upload-placeholder">
+                <div class="upload-label">
+                  Klik atau seret file ke sini
+                </div>
+                <div class="upload-hint">
+                  PDF/Image · Maks. 5 MB
+                </div>
+              </div>
+              <div class="upload-file">
+                <div class="file-left">
+                  <div class="file-icon">📄</div>
+                  <div>
+                    <div class="file-name"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -214,8 +239,22 @@
             <label>Bukti Follow IG Madya <span class="req">*</span></label>
             <div class="upload-area">
               <input type="file" id="file_bukti_follow" accept=".pdf,image/*" />
-              <div class="upload-label">Klik atau seret file ke sini</div>
-              <div class="upload-hint">PDF atau gambar · Maks. 5 MB</div>
+              <div class="upload-placeholder">
+                <div class="upload-label">
+                  Klik atau seret file ke sini
+                </div>
+                <div class="upload-hint">
+                  PDF/Image · Maks. 5 MB
+                </div>
+              </div>
+              <div class="upload-file">
+                <div class="file-left">
+                  <div class="file-icon">📄</div>
+                  <div>
+                    <div class="file-name"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -259,168 +298,6 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         Kembali ke Halaman Utama
     </button>
-  </div>
-</div>
-
-<!--Lolos berkas -->
-
-<div id="page-lolos-berkas" class="page">
-
-  <div class="announce-nav">
-    <div class="announce-nav-brand">Pendaftaran Asisten Laboratorium I</div>
-    <button class="btn-back" onclick="showPage('page-lobby')">
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      Beranda
-    </button>
-  </div>
-
-  <div class="announce-body">
-
-    <div class="confetti-banner" style="background: rgba(232,184,75,.07);border: 1px solid rgba(232,184,75,.2);">
-        <h1>Selamat Kepada Kamu<br/>Dinyatakan Lolos Berkas!</h1>
-    </div>
-
-    <div class="jadwal-grid">
-      <div class="jadwal-card sesi-a">
-        <div class="jadwal-sesi-label">Sesi 1</div>
-        <div class="jadwal-row">
-          <span class="jadwal-icon">📅</span>
-          <div><strong><!-- Ganti hari/tanggal --></strong></div>
-        </div>
-        <div class="jadwal-row">
-          <span class="jadwal-icon">🕐</span>
-          <div><strong><!-- Ganti jam --></strong></div>
-        </div>
-        <div class="jadwal-row">
-          <span class="jadwal-icon">📍</span>
-          <div><strong><!-- Ganti ruangan --></strong></div>
-        </div>
-      </div>
-      <div class="jadwal-card sesi-b">
-        <div class="jadwal-sesi-label">Sesi 2</div>
-        <div class="jadwal-row">
-          <span class="jadwal-icon">📅</span>
-          <div><strong>Senin, 15 Juli 2026</strong></div>
-        </div>
-        <div class="jadwal-row">
-          <span class="jadwal-icon">🕐</span>
-          <div><strong><!-- Ganti jam --></strong></div>
-        </div>
-        <div class="jadwal-row">
-          <span class="jadwal-icon">📍</span>
-          <div><strong><!-- Ganti ruangan --></strong></div>
-        </div>
-      </div>
-      <div class="jadwal-card sesi-c">
-        <div class="jadwal-sesi-label">Sesi 3</div>
-        <div class="jadwal-row">
-          <span class="jadwal-icon">📅</span>
-          <div><strong>Senin</strong></div>
-        </div>
-        <div class="jadwal-row">
-          <span class="jadwal-icon">🕐</span>
-          <div><strong><!-- Ganti jam --></strong></div>
-        </div>
-        <div class="jadwal-row">
-          <span class="jadwal-icon">📍</span>
-          <div><strong><!-- Ganti ruangan --></strong></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="peserta-section">
-      <div class="peserta-section-head">
-        <h2>Daftar Peserta Lolos Berkas</h2>
-      </div>
-      <div class="peserta-search-wrap">
-        <input class="peserta-search" type="text" placeholder="Cari nama atau NRP..." oninput="filterTable('tbl-berkas', this.value)" />
-      </div>
-      <div class="peserta-table-wrap">
-        <table class="peserta-table" id="tbl-berkas">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Nama</th>
-              <th>NRP</th>
-              <th>Sesi Wawancara</th>
-            </tr>
-          </thead>
-          <tbody id="tbody-berkas">
-            <!-- Baris data diisi oleh JavaScript dari array pesertaBerkas di bawah -->
-          </tbody>
-        </table>
-      </div>
-    </div> 
-
-    <div class="catatan-box">
-      <div>
-        <h3>Note:</h3>
-        <ul>
-          <li>Hadir <strong>15 menit sebelum</strong> jadwal wawancara dimulai.</li>
-          <li>Berpakaian standart kuliah</li>
-          <li>Pertanyaan dapat menghubungi panitia melalui kontak yang tertera.</li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- lolos jadi aslab yey -->
-<div id="page-lolos-final" class="page">
-
-  <div class="announce-nav">
-    <div class="announce-nav-brand">Pendaftaran Asisten Laboratorium I</div>
-    <button class="btn-back" onclick="showPage('page-lobby')">
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      Beranda
-    </button>
-  </div>
-
-  <div class="announce-body">
-
-    <div class="confetti-banner">
-      <div class="confetti-banner-inner">
-        <h1>🎉 Selamat YEY!</h1>
-      </div>
-    </div>
-
-    <div class="peserta-section">
-      <div class="peserta-section-head">
-        <h2>Daftar Asisten Laboratorium</h2>
-      </div>
-      <div class="peserta-search-wrap">
-        <input class="peserta-search" type="text" placeholder="Cari nama atau NRP..." oninput="filterTable('tbl-final', this.value)" />
-      </div>
-      <div class="peserta-table-wrap">
-        <table class="peserta-table" id="tbl-final">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Nama</th>
-              <th>NRP</th>
-            </tr>
-          </thead>
-          <tbody id="tbody-final">
-            <!-- Baris data diisi oleh JavaScript dari array aslabFinal di bawah -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="catatan-box">
-      <span class="catatan-box-icon">📌</span>
-      <div>
-        <h3>Informasi Penting</h3>
-        <ul>
-          <li>Konfirmasi kehadiran orientasi paling lambat <strong>3 hari</strong> setelah pengumuman ini.</li>
-          <li>Bagi yang tidak bisa hadir orientasi, segera hubungi koordinator lab.</li>
-          <li>Asisten yang tidak melakukan konfirmasi dalam batas waktu dianggap <strong>mengundurkan diri</strong>.</li>
-          <li>Selamat bertugas dan menjaga nama baik laboratorium!</li>
-        </ul>
-      </div>
-    </div>
-
   </div>
 </div>
 

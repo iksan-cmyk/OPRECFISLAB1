@@ -1,18 +1,3 @@
-//Ganti array di bawah dengan data peserta asli
-
-const pesertaBerkas = [
-  { nama: '—', nrp: '—', sesi: '1' },
-  { nama: '—', nrp: '—', sesi: '2' },
-  { nama: '—', nrp: '—', sesi: '3' },
-];
-
-//pengumuman lolos
-//Format: { nama, nrp }
-const aslabFinal = [
-  { nama: '—', nrp: '—'},
-  { nama: '—', nrp: '—'},
-];
-
 /* ── Supabase config (satu tempat saja) ── */
 const SUPABASE_URL = 'https://lxzplllmxyxmxznkezdv.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_G_AF3JdIU0Fk7_zGhTf0Fw_Lx4ghd-_';
@@ -27,52 +12,6 @@ try {
 } catch (err) {
   console.error('Gagal inisialisasi Supabase:', err);
   dbClient = null;
-}
-
-function sesiClass(s) {
-  return s === 'A' ? 'sesi-a' : s === 'B' ? 'sesi-b' : 'sesi-c';
-}
-function sesiTagClass(s) {
-  return s === 'A' ? 'tag-sesi-a' : s === 'B' ? 'tag-sesi-b' : 'tag-sesi-c';
-}
-
-function renderBerkas() {
-  const tbody = document.getElementById('tbody-berkas');
-  if (!tbody) return;
-  tbody.innerHTML = pesertaBerkas.map((p, i) => `
-    <tr>
-      <td style="color:var(--gray400)">${i + 1}</td>
-      <td><strong>${p.nama}</strong></td>
-      <td style="font-family:monospace;color:var(--gray200)">${p.nrp}</td>
-      <td><span class="tag-sesi ${sesiTagClass(p.sesi)}">Sesi ${p.sesi}</span></td>
-    </tr>
-  `).join('');
-  const badge = document.getElementById('badge-berkas-count');
-  if (badge) badge.textContent = pesertaBerkas.length + ' peserta';
-  const count = document.getElementById('count-berkas');
-  if (count) count.textContent = pesertaBerkas.length;
-}
-
-function renderFinal() {
-  const tbody = document.getElementById('tbody-final');
-  if (!tbody) return;
-  tbody.innerHTML = aslabFinal.map((p, i) => `
-    <tr>
-      <td style="color:var(--gray400)">${i + 1}</td>
-      <td><strong>${p.nama}</strong></td>
-      <td style="font-family:monospace;color:var(--gray200)">${p.nrp}</td>
-      <td><span class="status-diterima"> Diterima</span></td>
-    </tr>
-  `).join('');
-  const badge = document.getElementById('badge-final-count');
-  if (badge) badge.textContent = aslabFinal.length + ' aslab';
-}
-
-function filterTable(tableId, query) {
-  const q = query.toLowerCase();
-  document.querySelectorAll('#' + tableId + ' tbody tr').forEach(row => {
-    row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
-  });
 }
 
 function showPage(id) {
@@ -180,6 +119,20 @@ function validateStep(step) {
 
   return valid;
 }
+
+document.querySelectorAll(".upload-area").forEach(area => {
+    const input = area.querySelector('input[type="file"]');
+    const fileName = area.querySelector(".file-name");
+    input.addEventListener("change", function(){
+        if(this.files.length){
+            area.classList.add("has-file");
+            fileName.textContent = this.files[0].name;
+        }else{
+            area.classList.remove("has-file");
+            fileName.textContent = "";
+        }
+    });
+});
 
 /* ── Validasi file sebelum upload ── */
 function validateFile(file, jenis) {
@@ -455,9 +408,6 @@ function initAutoSave() {
 }
 
 /* ── INIT ── */
-renderBerkas();
-renderFinal();
-
 document.addEventListener('DOMContentLoaded', () => {
   buildOptions('judul-a1', judulSebelumETS);
   buildOptions('judul-a2', judulSebelumETS);

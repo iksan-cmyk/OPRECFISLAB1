@@ -144,6 +144,14 @@ function renderTabel(data) {
       '<option value="' + o.value + '"' + (o.value === status ? ' selected' : '') + '>' + o.label + '</option>'
     ).join('');
 
+    const aksiDokumen = status === 'lolos_berkas'
+      ? `<input class="input-jadwal" type="datetime-local" value="${timestamptzToLocalInput(p.jadwal_interview)}" title="Jadwal interview">
+         <button class="btn-lihat-dok btn-simpan-jadwal" onclick="updateJadwalInterview('${p.id || p.nrp}')" title="Simpan jadwal">
+           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+           Simpan
+         </button>`
+      : '';
+
     return `
       <tr data-id="${p.id || p.nrp}">
         <td style="color:var(--gray400)">${i + 1}</td>
@@ -160,10 +168,7 @@ function renderTabel(data) {
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
               Detail
             </button>
-            <button class="btn-lihat-dok" onclick="bukaModalDokumen('${p.id || p.nrp}')" title="Lihat dokumen">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              Dokumen
-            </button>
+            ${aksiDokumen}
             <select class="select-status" onchange="updateStatus('${p.id || p.nrp}', this.value)" data-current="${status}">
               ${options}
             </select>
@@ -214,7 +219,13 @@ async function updateStatus(id, newStatus) {
     }
 
     const p = pendaftarCache.find(x => (x.id || x.nrp) == id);
-    if (p) { p.status = newStatus; renderStats(pendaftarCache); }
+    if (p) {
+      p.status = newStatus;
+      renderStats(pendaftarCache);
+      const searchInput = document.querySelector('.admin-search');
+      const q = searchInput ? searchInput.value.trim() : '';
+      if (q) filterTabel(q); else renderTabel(pendaftarCache);
+    }
   } catch (err) {
     console.error('Update status gagal:', err);
     alert('Gagal mengubah status: ' + (err.message || 'unknown error'));
@@ -224,92 +235,63 @@ async function updateStatus(id, newStatus) {
   }
 }
 
-/* ════════ MODAL DOKUMEN ════════ */
+/* ════════ UPDATE JADWAL INTERVIEW ════════ */
 
-async function bukaModalDokumen(id) {
-  const p = pendaftarCache.find(x => (x.id || x.nrp) == id);
-  if (!p) return;
+async function updateJadwalInterview(id) {
+  if (!dbClient) return;
 
-  const modal = document.getElementById('modal-dokumen');
-  const title = document.getElementById('modal-title');
-  const body = document.getElementById('modal-body');
+  const row = document.querySelector('tr[data-id="' + id + '"]');
+  const input = row ? row.querySelector('.input-jadwal') : null;
+  const btn = row ? row.querySelector('.btn-simpan-jadwal') : null;
 
-  title.textContent = 'Dokumen — ' + (p.nama_lengkap || p.nrp || 'Pendaftar');
-  body.innerHTML = '<p class="modal-loading">Memuat dokumen...</p>';
-  modal.classList.add('active');
+  if (!input) return;
 
-  const dokumen = [
-    { label: 'Curriculum Vitae',   path: p.file_cv_path,           folder: 'cv' },
-    { label: 'Transkrip Nilai',     path: p.file_transkrip_path,    folder: 'transkrip' },
-    { label: 'Bukti Follow IG',     path: p.file_bukti_follow_path, folder: 'bukti_follow' },
-  ];
+  const val = input.value;
+  const iso = val ? localInputToISO(val) : null;
 
-  const htmlParts = [];
+  if (input) { input.disabled = true; }
+  if (btn) { btn.disabled = true; }
 
-  for (const dok of dokumen) {
-    if (!dok.path) {
-      htmlParts.push(`
-        <div class="dok-item">
-          <div class="dok-info">
-            <span class="dok-label">${dok.label}</span>
-            <span class="dok-empty">Tidak ada file</span>
-          </div>
-        </div>
-      `);
-      continue;
-    }
+  try {
+    const { error } = await dbClient
+      .from('pendaftar_aslab')
+      .update({ jadwal_interview: iso })
+      .eq('id', id);
 
-    const filename = dok.path.split('/').pop();
-    let url = null;
+    if (error) throw error;
 
-    try {
-      const { data, error } = await dbClient.storage
-        .from(BUCKET)
-        .createSignedUrl(dok.path, 300);
-
-      if (error) throw error;
-      url = data.signedUrl;
-    } catch (err) {
-      console.error('Signed URL gagal untuk ' + dok.folder + ':', err);
-    }
-
-    if (url) {
-      htmlParts.push(`
-        <div class="dok-item">
-          <div class="dok-info">
-            <span class="dok-label">${dok.label}</span>
-            <span class="dok-filename">${escapeHtml(filename)}</span>
-          </div>
-          <div class="dok-actions">
-            <a class="btn-dok btn-dok-lihat" href="${url}" target="_blank" rel="noopener">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              Lihat
-            </a>
-            <a class="btn-dok btn-dok-download" href="${url}" download="${escapeHtml(filename)}">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download
-            </a>
-          </div>
-        </div>
-      `);
-    } else {
-      htmlParts.push(`
-        <div class="dok-item">
-          <div class="dok-info">
-            <span class="dok-label">${dok.label}</span>
-            <span class="dok-filename">${escapeHtml(filename)}</span>
-            <span class="dok-empty">Gagal generate link</span>
-          </div>
-        </div>
-      `);
-    }
+    const p = pendaftarCache.find(x => (x.id || x.nrp) == id);
+    if (p) p.jadwal_interview = iso;
+  } catch (err) {
+    console.error('Update jadwal interview gagal:', err);
+    alert('Gagal menyimpan jadwal: ' + (err.message || 'unknown error'));
+    const p = pendaftarCache.find(x => (x.id || x.nrp) == id);
+    if (input && p) input.value = timestamptzToLocalInput(p.jadwal_interview);
+  } finally {
+    if (input) { input.disabled = false; }
+    if (btn) { btn.disabled = false; }
   }
-
-  body.innerHTML = htmlParts.join('');
 }
 
-function tutupModal() {
-  document.getElementById('modal-dokumen').classList.remove('active');
+/* ════════ HELPER KONVERSI TANGGAL ════════ */
+
+function timestamptzToLocalInput(ts) {
+  if (!ts) return '';
+  try {
+    const d = new Date(ts);
+    if (isNaN(d.getTime())) return '';
+    const pad = n => String(n).padStart(2, '0');
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+  } catch (_) {
+    return '';
+  }
+}
+
+function localInputToISO(val) {
+  if (!val) return null;
+  const d = new Date(val);
+  if (isNaN(d.getTime())) return null;
+  return d.toISOString();
 }
 
 /* ════════ MODAL DETAIL PENDAFTAR ════════ */
@@ -454,13 +436,11 @@ function renderDokItemFull(label, url, filename) {
 }
 
 document.addEventListener('click', (e) => {
-  if (e.target.id === 'modal-dokumen') tutupModal();
   if (e.target.id === 'modal-detail') tutupModalDetail();
 });
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
-    tutupModal();
     tutupModalDetail();
   }
 });
