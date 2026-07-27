@@ -48,11 +48,25 @@ const STATUS_LABEL_PUBLIK = {
 
 const CATATAN_INTERVIEW = `
   <div class="status-catatan">
-    <h3>Note:</h3>
+    <h3>Tata Tertib Tahap Interview:</h3>
     <ul>
-      <li>Hadir <strong>15 menit sebelum</strong> jadwal wawancara dimulai.</li>
-      <li>Berpakaian standart kuliah</li>
-      <li>Pertanyaan dapat menghubungi panitia <a href="https://wa.me/628988682847">Yoga</a> atau <a href="https://wa.me/6281362192288">Salwa</a>.</li>
+      <li>Interview aslab akan dilakukan secara online melalui media zoom meeting sesuai jadwal yang tertera pada pengumuman, dengan materi 2 judul yang telah dipilih dan 2 judul acak (masing-masing 2 judul sebelum ETS dan 2 judul setelah ETS) saat pengisian form pendaftaran aslab.</li>
+      <li>Penguji merupakan koordinator Fisika Laboratorium 2023.</li>
+      <li>Peserta interview dapat mendownload <a href="https://its.id/m/POMITSDUMMY">berkas POMITS</a> yang disediakan untuk dapat mencari kesalahan/menganalisis penulisan POMITS, sebagai bahan untuk menjawab pertanyaan pada saat sesi interview.</li>
+      <li>Peserta interview diwajibkan untuk mempersiapkan Laptop yang digunakan untuk melakukan simulasi rangkaian proteus/tinkercad sesuai dengan pilihan judul pada form pendaftaran aslab.</li>
+      <li>Peserta interview wajib hadir pada zoom meeting paling lambat <strong>10 menit sebelum</strong> interview dimulai agar dapat mempersiapkan segala kebutuhan interview.</li>
+      <li>Peserta interview wajib menyalakan kamera saat sesi interview berlangsung.</li>
+      <li>Peserta interview dapat menunggu pada main room untuk menunggu bagian interview sesuai jadwal dan <a href="https://docs.google.com/spreadsheets/d/19_QU-OH6Q_-vzuBcFoIB8_jb4Vg1eY81MgvAHVmphLU/edit?usp=sharing">breakout room</a> yang dapat dilihat pada website pengumuman.</li>
+      <li>Peserta interview tidak diperkenankan memasuki breakout room hingga dialihkan langsung oleh operator.</li>
+      <li>
+        Peserta interview yang berhalangan hadir dapat segera mengkonfirmasi untuk mendapatkan sesi interview di waktu lain, dan menghubungi CP maksimal 1x24 jam setelah mendapatkan pengumuman lolos berkas:
+        <ul>
+          <li><a href="https://wa.me/6281362192288">Salwa</a></li>
+          <li><a href="https://wa.me/628988682847">Yoga</a></li>
+        </ul>
+      </li>
+      <li>Apabila peserta tidak hadir dan tidak ada konfirmasi, maka peserta dianggap gugur.</li>
+      <li>Hal-hal perlu yang belum ditetapkan, akan ditetapkan kemudian.</li>
     </ul>
   </div>
 `;
