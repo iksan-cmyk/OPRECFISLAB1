@@ -57,7 +57,6 @@ const CATATAN_INTERVIEW = `
       <li>Peserta interview wajib hadir pada zoom meeting paling lambat <strong>10 menit sebelum</strong> interview dimulai agar dapat mempersiapkan segala kebutuhan interview.</li>
       <li>Peserta interview wajib menyalakan kamera saat sesi interview berlangsung.</li>
       <li>Peserta interview dapat menunggu pada main room untuk menunggu bagian interview sesuai jadwal dan <a href="https://docs.google.com/spreadsheets/d/19_QU-OH6Q_-vzuBcFoIB8_jb4Vg1eY81MgvAHVmphLU/edit?usp=sharing">breakout room</a> yang dapat dilihat pada website pengumuman.</li>
-      <li>Peserta interview tidak diperkenankan memasuki breakout room hingga dialihkan langsung oleh operator.</li>
       <li>
         Peserta interview yang berhalangan hadir dapat segera mengkonfirmasi untuk mendapatkan sesi interview di waktu lain, dan menghubungi CP maksimal 1x24 jam setelah mendapatkan pengumuman lolos berkas:
         <ul>
