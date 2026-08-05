@@ -26,7 +26,7 @@ const STATUS_PESAN = {
   pending:        'Masih dalam proses seleksi, sabar ya 😌',
   lolos_berkas:   'Lolos seleksi berkas! Cek jadwal interview kamu di bawah 🔥',
   gagal:          'Belum lolos di tahap ini, semangat next time bre 🙏',
-  lolos_final:    'Selamat, kamu resmi jadi Aslab Fislab 1! 🔥🔥',
+  lolos_final:    'Selamat, kamu resmi jadi Aslab Fislab 1! Cek pembagian jadwal praktikum kamu di bawah 🔥🔥',
   ditolak_final:  'Belum lolos di tahap final, makasih udah ikutan bre 🙏',
 };
 
@@ -159,6 +159,11 @@ function renderStatusResult(data, resultId) {
       '</div>';
     }
     catatanHtml = CATATAN_INTERVIEW;
+  } else if (status === 'lolos_final') {
+    linkHtml = '<div class="status-jadwal status-link">' +
+      '<span class="status-jadwal-label">🔗 Link Jadwal Praktikum</span>' +
+      '<a href="https://docs.google.com/spreadsheets/d/1ahS8thHhNCaO38bgTenfDLtPgj1PBi5Sg7fypK8BqAg/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Lihat Pembagian Jadwal Praktikum</a>' +
+    '</div>';
   }
 
   result.innerHTML =
